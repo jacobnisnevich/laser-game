@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Laser Game</title>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
+	<link href="styles/main.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+</head>
+<body>
+	<script>
+		$(document).ready(function() {
+			var testTile;
+			for (var i = 0; i < 7; i++) {
+				for (var j = 0; j < 7; j++) {
+					testTile = getTileByCoord(i,j);
+					if (i == 0 && j == 0 || i == 6 && j == 6) {
+						testTile.css("background-image", "url(images/corner_left_right.png)");
+					} else if (i == 6 && j == 0 || i == 0 && j == 6) {
+						testTile.css("background-image", "url(images/corner_right_left.png)");
+					} else if (i == 0 || j == 0 || i == 6 || j == 6) {
+						testTile.css("background-image", "url(images/wall.png)");
+					} else {
+						testTile.css("background-image", "url(images/floor.png)");
+					} 
+				}
+			}
+		});
+
+		function getTileByCoord(row, col) {
+			var index = row * 7 + col;
+			var element = $(".grid-container").children().children().get(index);
+			return $(element);
+		}
+	</script>
+	<div class="container">
+		<div class="heading">
+			<h1 class="title">Laser Game</h1>
+		</div>
+
+		<div class="above-game">
+			<div class="game-intro">Connect the lasers to their respective holes with a combination of mirrors, portals, and other blocks!</div>
+		</div>
+
+		<div class="game-container">
+			<div class="grid-container">
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+				<div class="grid-row">
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+					<div class="grid-cell"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+html, body {
+	margin: 0;
+	padding: 0;
+	background: #444;
+	color: #CCC;
+	font-family: "Roboto", Arial, sans-serif;
+	font-size: 18px; }
+
+body {
+	margin: 80px 0; }
+
+.heading:after {
+	content: "";
+	display: block;
+	clear: both; }
+
+h1.title {
+	font-size: 40px;
+	font-weight: bold;
+	margin: 0;
+	display: block;
+	float: left; }
+
+p {
+	margin-top: 0;
+	margin-bottom: 10px;
+	line-height: 1.65; }
+
+a {
+	color: #776e65;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer; }
+
+strong.important {
+	text-transform: uppercase; }
+
+hr {
+	border: none;
+	border-bottom: 1px solid #d8d4d0;
+	margin-top: 20px;
+	margin-bottom: 30px; }
+
+.container {
+	width: 466px;
+	margin: 0 auto; }
+
+.game-container {
+	margin-top: 20px;
+	position: relative;
+	padding: 3px;
+	cursor: default;
+	background: #222;
+	border-radius: 1px;
+	width: 460px;
+	height: 460px;
+}
+
+.grid-container {
+	position: absolute;
+	z-index: 1; }
+
+.grid-cell {
+	width: 64px;
+	height: 64px;
+	margin-right: 2px;
+	margin-bottom: 2px;
+	float: left;
+	background: #CCC; 
+}
+.grid-cell:last-child {
+	margin-right: 0; 
+}
