@@ -69,6 +69,12 @@ hr {
 	float: left;
 	background: #CCC; 
 }
+
+.selected {
+	border: 1px solid red;
+	margin: 0;
+}
+
 .grid-cell:last-child {
 	margin-right: 0; 
 }

@@ -13,6 +13,21 @@
 	<script>
 		$(document).ready(function() {
 			loadLevelData(levelOne);
+
+			var selected = null;
+
+			$(".grid-cell").click(function() {
+				if (!selected) {
+					$(this).addClass("selected");
+					selected = $(this);
+				} else {
+					var css = selected.css("background-image")
+					selected.css("background-image", $(this).css("background-image"));
+					$(this).css("background-image", css);
+					selected.removeClass("selected");
+					selected = null;
+				}
+			});
 		});
 
 		function loadLevelData(level) {
@@ -37,7 +52,22 @@
 						case 'laser-red-right':
 							tile.css("background-image", "url(images/laser_red_right.png)");
 							break;
-						// other lasers
+						case 'laser-red-left':
+							tile.css("background-image", "url(images/laser_red_left.png)");
+							break;
+						case 'laser-red-up':
+							tile.css("background-image", "url(images/laser_red_up.png)");
+							break;
+						case 'laser-red-down':
+							tile.css("background-image", "url(images/laser_red_down.png)");
+							break;
+						case 'mirror-right-left':
+							tile.css("background-image", "url(images/mirror_right_left.png)");
+							break;
+						case 'mirror-left-right':
+							tile.css("background-image", "url(images/mirror_left_right.png)");
+							break;
+						// mirrors
 					}
 				}
 			}
