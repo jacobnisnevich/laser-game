@@ -7,26 +7,41 @@
 	<link href="styles/main.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="js/levels.js"></script>
 </head>
 <body>
 	<script>
 		$(document).ready(function() {
-			var testTile;
+			loadLevelData(levelOne);
+		});
+
+		function loadLevelData(level) {
+			var tile;
+
 			for (var i = 0; i < 7; i++) {
 				for (var j = 0; j < 7; j++) {
-					testTile = getTileByCoord(i,j);
-					if (i == 0 && j == 0 || i == 6 && j == 6) {
-						testTile.css("background-image", "url(images/corner_left_right.png)");
-					} else if (i == 6 && j == 0 || i == 0 && j == 6) {
-						testTile.css("background-image", "url(images/corner_right_left.png)");
-					} else if (i == 0 || j == 0 || i == 6 || j == 6) {
-						testTile.css("background-image", "url(images/wall.png)");
-					} else {
-						testTile.css("background-image", "url(images/floor.png)");
-					} 
+					tile = getTileByCoord(i, j);
+					switch (level[i][j]) {
+						case 'floor':
+							tile.css("background-image", "url(images/floor.png)");
+							break;
+						case 'wall':
+							tile.css("background-image", "url(images/wall.png)");
+							break;
+						case 'corner-left-right':
+							tile.css("background-image", "url(images/corner_left_right.png)");
+							break;
+						case 'corner-right-left':
+							tile.css("background-image", "url(images/corner_right_left.png)");
+							break;
+						case 'laser-red-right':
+							tile.css("background-image", "url(images/laser_red_right.png)");
+							break;
+						// other lasers
+					}
 				}
 			}
-		});
+		}
 
 		function getTileByCoord(row, col) {
 			var index = row * 7 + col;
