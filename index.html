@@ -88,6 +88,14 @@
 			}
 		}
 
+		function getXByTile(tile) {
+			return tile.index();
+		}
+
+		function getYByTile(tile) {
+			return tile.parent().index();
+		}
+
 		function getTileByCoord(row, col) {
 			var index = row * 7 + col;
 			var element = $(".grid-container").children().children().get(index);
