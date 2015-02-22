@@ -59,7 +59,8 @@ hr {
 
 .grid-container {
 	position: absolute;
-	z-index: 1; }
+	z-index: 1; 
+}
 
 .grid-cell {
 	width: 64px;
