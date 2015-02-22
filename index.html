@@ -25,6 +25,9 @@
 					selected.css("background-image", $(this).css("background-image"));
 					$(this).css("background-image", css);
 					selected.removeClass("selected");
+					if (selected != $(this)) {
+						$(".move-counter").html(Number($(".move-counter").html()) + 1)
+					}
 					selected = null;
 				}
 			});
@@ -61,6 +64,18 @@
 						case 'laser-red-down':
 							tile.css("background-image", "url(images/laser_red_down.png)");
 							break;
+						case 'hole-red-right':
+							tile.css("background-image", "url(images/hole_red_right.png)");
+							break;
+						case 'hole-red-left':
+							tile.css("background-image", "url(images/hole_red_left.png)");
+							break;
+						case 'hole-red-up':
+							tile.css("background-image", "url(images/hole_red_up.png)");
+							break;
+						case 'hole-red-down':
+							tile.css("background-image", "url(images/hole_red_down.png)");
+							break;
 						case 'mirror-right-left':
 							tile.css("background-image", "url(images/mirror_right_left.png)");
 							break;
@@ -86,6 +101,7 @@
 
 		<div class="above-game">
 			<div class="game-intro">Connect the lasers to their respective holes with a combination of mirrors, portals, and other blocks!</div>
+			<div class="score">Moves made: <div class="move-counter">0</div></div>
 		</div>
 
 		<div class="game-container">

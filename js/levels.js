@@ -5,5 +5,5 @@ var levelOne = [
 		['laser-red-right','floor','mirror-left-right','floor','floor','floor','wall'],
 		['wall','floor','floor','floor','floor','floor','wall'],
 		['wall','floor','floor','floor','floor','floor','wall'],
-		['corner-right-left','wall','wall','wall','wall','wall','corner-left-right']
+		['corner-right-left','wall','wall','hole-red-up','wall','wall','corner-left-right']
 	];
