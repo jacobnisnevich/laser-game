@@ -1,5 +1,5 @@
 var levelOne = {
-	rcNum: 7;
+	rcNum: 7,
 	grid:[['corner-left-right','wall','wall','wall','wall','wall','corner-right-left'],
 		 ['wall','floor','floor','floor','floor','floor','wall'],
 		 ['wall','floor','floor','floor','floor','floor','wall'],
