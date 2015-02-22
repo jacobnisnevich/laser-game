@@ -51,7 +51,7 @@
 			for (var i = 0; i < level.rcNum; i++) {
 				for (var j = 0; j < level.rcNum; j++) {
 					tile = getTileByCoord(i, j);
-					switch (level[i][j]) {
+					switch (level.grid[i][j]) {
 						case 'floor':
 							tile.css("background-image", "url(images/floor.png)");
 							break;
