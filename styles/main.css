@@ -65,6 +65,8 @@ hr {
 .grid-cell {
 	width: 64px;
 	height: 64px;
+	margin-right: 2px;
+	margin-bottom: 2px;
 	float: left;
 	background: #CCC; 
 }
