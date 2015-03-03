@@ -13,15 +13,17 @@ Game.prototype.emitLasers = function() {
 	// find all lasers and emit them in correct direction
 };
 
-Game.prototype.parseTile = function(tileX, tileY) {
+Game.prototype._parseTile = function(tileX, tileY) {
 	var string = this.levelGrid;
-	return string.split('-')
+	return string.split('-');
 };
 
-Game.prototype.emit = function(color, direction, tileX, tileY) {
-	var tile = this.parseTile(tileX, tileY)
+Game.prototype._emit = function(color, direction, tileX, tileY) {
+	var tile = this._parseTile(tileX, tileY)
 	var nextDir = direction;
 
+	// terminate if hit a wall (or impossible case of hitting corner)
+	// get next direction if current tile is a miror
 	if (tile[0] == wall || tile[0] == corner) {
 		return;
 	} else if (tile[0] == mirror) {
@@ -30,16 +32,16 @@ Game.prototype.emit = function(color, direction, tileX, tileY) {
 	}
 	switch(direction) {
 		case 'up':
-			this.emit(color, nextDir, tileX, tileY - 1);
+			this._emit(color, nextDir, tileX, tileY - 1);
 			break;
 		case 'right':
-			this.emit(color, nextDir, tileX + 1, tileY);
+			this._emit(color, nextDir, tileX + 1, tileY);
 			break;
 		case 'down':
-			this.emit(color, nextDir, tileX, tileY + 1);
+			this._emit(color, nextDir, tileX, tileY + 1);
 			break;
 		case 'left':
-			this.emit(color, nextDir, tileX - 1, tileY);
+			this._emit(color, nextDir, tileX - 1, tileY);
 			break;
 	}
 };
