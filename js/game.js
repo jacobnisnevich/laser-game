@@ -10,13 +10,13 @@ Game.prototype.swap = function(srcX, srcY, destX, destY) {
 };
 
 Game.prototype.emitLasers = function() {
-	
+	// find all lasers and emit them in correct direction
 };
 
 Game.prototype.parseTile = function(tileX, tileY) {
 	var string = this.levelGrid;
 	return string.split('-')
-}
+};
 
 Game.prototype.emit = function(color, direction, tileX, tileY) {
 	var tile = this.parseTile(tileX, tileY)
@@ -42,7 +42,7 @@ Game.prototype.emit = function(color, direction, tileX, tileY) {
 			this.emit(color, nextDir, tileX - 1, tileY);
 			break;
 	}
-}
+};
 
 function getNextDir(mirrorDir, currentDir) {
 	var nextDir;
