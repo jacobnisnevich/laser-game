@@ -51,51 +51,52 @@
 			for (var i = 0; i < level.rcNum; i++) {
 				for (var j = 0; j < level.rcNum; j++) {
 					tile = getTileByCoord(i, j);
-					switch (level.grid[i][j]) {
-						case 'floor':
-							tile.css("background-image", "url(images/floor.png)");
-							break;
-						case 'wall':
-							tile.css("background-image", "url(images/wall.png)");
-							break;
-						case 'corner-left-right':
-							tile.css("background-image", "url(images/corner_left_right.png)");
-							break;
-						case 'corner-right-left':
-							tile.css("background-image", "url(images/corner_right_left.png)");
-							break;
-						case 'laser-red-right':
-							tile.css("background-image", "url(images/laser_red_right.png)");
-							break;
-						case 'laser-red-left':
-							tile.css("background-image", "url(images/laser_red_left.png)");
-							break;
-						case 'laser-red-up':
-							tile.css("background-image", "url(images/laser_red_up.png)");
-							break;
-						case 'laser-red-down':
-							tile.css("background-image", "url(images/laser_red_down.png)");
-							break;
-						case 'hole-red-right':
-							tile.css("background-image", "url(images/hole_red_right.png)");
-							break;
-						case 'hole-red-left':
-							tile.css("background-image", "url(images/hole_red_left.png)");
-							break;
-						case 'hole-red-up':
-							tile.css("background-image", "url(images/hole_red_up.png)");
-							break;
-						case 'hole-red-down':
-							tile.css("background-image", "url(images/hole_red_down.png)");
-							break;
-						case 'mirror-right-left':
-							tile.css("background-image", "url(images/mirror_right_left.png)");
-							break;
-						case 'mirror-left-right':
-							tile.css("background-image", "url(images/mirror_left_right.png)");
-							break;
-						// mirrors
-					}
+					imageCSS = "url(images/" + level.grid[i][j].replace(/-/g, '_') + ".png)";
+					tile.css("background-image", imageCSS);
+					//switch (level.grid[i][j]) {
+					//	case 'floor':
+					//		tile.css("background-image", "url(images/floor.png)");
+					//		break;
+					//	case 'wall':
+					//		tile.css("background-image", "url(images/wall.png)");
+					//		break;
+					//	case 'corner-left-right':
+					//		tile.css("background-image", "url(images/corner_left_right.png)");
+					//		break;
+					//	case 'corner-right-left':
+					//		tile.css("background-image", "url(images/corner_right_left.png)");
+					//		break;
+					//	case 'laser-red-right':
+					//		tile.css("background-image", "url(images/laser_red_right.png)");
+					//		break;
+					//	case 'laser-red-left':
+					//		tile.css("background-image", "url(images/laser_red_left.png)");
+					//		break;
+					//	case 'laser-red-up':
+					//		tile.css("background-image", "url(images/laser_red_up.png)");
+					//		break;
+					//	case 'laser-red-down':
+					//		tile.css("background-image", "url(images/laser_red_down.png)");
+					//		break;
+					//	case 'hole-red-right':
+					//		tile.css("background-image", "url(images/hole_red_right.png)");
+					//		break;
+					//	case 'hole-red-left':
+					//		tile.css("background-image", "url(images/hole_red_left.png)");
+					//		break;
+					//	case 'hole-red-up':
+					//		tile.css("background-image", "url(images/hole_red_up.png)");
+					//		break;
+					//	case 'hole-red-down':
+					//		tile.css("background-image", "url(images/hole_red_down.png)");
+					//		break;
+					//	case 'mirror-right-left':
+					//		tile.css("background-image", "url(images/mirror_right_left.png)");
+					//		break;
+					//	case 'mirror-left-right':
+					//		tile.css("background-image", "url(images/mirror_left_right.png)");
+					//		break;
+					//}
 				}
 			}
 		}
