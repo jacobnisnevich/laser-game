@@ -27,6 +27,7 @@
 					$(this).addClass("selected");
 					selected = $(this);
 				} else {
+					removeLasers(laserGame.rcNum);
 					var css = selected.css("background-image")
 					selected.css("background-image", $(this).css("background-image"));
 					$(this).css("background-image", css);
@@ -39,7 +40,7 @@
 					}
 
 					laserGame.emitLasers();
-					overlayLasers(laserGame.laserGrid);
+					overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 
 					selected = null;
 				}
@@ -51,6 +52,17 @@
 				for (var x = 0; x < rcNum; x++) {
 					if (laserGrid[y][x] != '') {
 						getTileByCoord(y, x).css("background-image", "url(images/" + laserGrid[y][x] + ".png), " + getTileByCoord(y, x).css("background-image"));
+					}
+				}
+			}
+		}
+
+		function removeLasers(rcNum) {
+			for (var y = 0; y < rcNum; y++) {
+				for (var x = 0; x < rcNum; x++) {
+					var background = getTileByCoord(y, x).css("background-image");
+					if (background.split(" ").length > 1) {
+						getTileByCoord(y, x).css("background-image", background.split(" ")[1])
 					}
 				}
 			}
