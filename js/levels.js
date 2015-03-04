@@ -1,7 +1,7 @@
 var levelOne = {
 	rcNum: 7,
 	grid:[['corner-left-right','wall','wall','wall','wall','wall','corner-right-left'],
-		 ['wall','floor','floor','floor','floor','floor','wall'],
+		 ['wall','mirror-right-left','floor','mirror-right-left','floor','floor','wall'],
 		 ['wall','floor','floor','floor','floor','floor','wall'],
 		 ['laser-red-right','floor','mirror-left-right','floor','floor','floor','wall'],
 		 ['wall','floor','floor','floor','floor','floor','wall'],

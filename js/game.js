@@ -58,6 +58,31 @@ Game.prototype._emit = function(color, direction, tileX, tileY) {
 	} else if (tile[0] == 'mirror') {
 		var mirrorDir = tile[1];
 		nextDir = getNextDir(mirrorDir, nextDir);
+		if (direction == 'right') {
+			if (nextDir == 'up') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_nw";
+			} else if (nextDir == 'down') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_sw";
+			}
+		} else if (direction == 'left') {
+			if (nextDir == 'up') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_ne";
+			} else if (nextDir == 'down') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_se";
+			}
+		} else if (direction == 'up') {
+			if (nextDir == 'left') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_sw";
+			} else if (nextDir == 'right') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_se";
+			}
+		} else if (direction == 'down') {
+			if (nextDir == 'left') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_nw";
+			} else if (nextDir == 'right') {
+				this.laserGrid[tileY][tileX] = "beam_" + color + "_ne";
+			}
+		}
 	} else if (tile[0] == 'floor') {
 		if (direction == 'right' || direction == 'left') {
 			this.laserGrid[tileY][tileX] = "beam_" + color + "_horizontal";
