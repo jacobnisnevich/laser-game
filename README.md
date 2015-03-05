@@ -23,3 +23,16 @@ Simple puzzle game involving lasers, mirrors, and portals
     * ~~Mirror behavior~~
   * Check if laser hits appropriate hole
   * Level counter that gets updated in document.ready
+  * Needed images
+    * Green lasers
+      * Diagonal beams
+      * Green emitters
+      * Green holes
+    * Blue lasers
+      * Vertical beams
+      * Horizontal beams
+      * Diagonal beams
+      * blue emitters
+      * blue holes
+    * Glass blocks
+    * Brick/solid blocks

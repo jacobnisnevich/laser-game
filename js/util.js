@@ -20,25 +20,25 @@ function removeLasers(rcNum) {
 	}
 }
 
-function createGridContainer(level) {
-	for (var i = 0; i < level.rcNum; i++) {
+function createGridContainer(grid, rcNum) {
+	for (var i = 0; i < rcNum; i++) {
 		$(".grid-container").append('<div class="grid-row"></div>');
 	}
 
-	for (var j = 0; j < level.rcNum; j++) {
+	for (var j = 0; j < rcNum; j++) {
 		$(".grid-row").append('<div class ="grid-cell"></div>');
 	}
 
-	loadLevelData(level);
+	loadLevelData(grid, rcNum);
 }
 
-function loadLevelData(level) {
+function loadLevelData(grid, rcNum) {
 	var tile;
 
-	for (var i = 0; i < level.rcNum; i++) {
-		for (var j = 0; j < level.rcNum; j++) {
+	for (var i = 0; i < rcNum; i++) {
+		for (var j = 0; j < rcNum; j++) {
 			tile = getTileByCoord(i, j);
-			imageCSS = "url(images/" + level.grid[i][j].replace(/-/g, '_') + ".png)";
+			imageCSS = "url(images/" + grid[i][j].replace(/-/g, '_') + ".png)";
 			tile.css("background-image", imageCSS);
 		}
 	}

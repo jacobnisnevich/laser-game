@@ -1,18 +1,20 @@
-var Game = function(levelGrid, rcNum) {
-	this.levelGrid = levelGrid;
-	this.laserGrid = [];
-	this.rcNum = rcNum;
-
-	// initialize laserGrid
-	for(var i = 0; i < rcNum; i++) {
-		this.laserGrid[i] = [];
-		for(var j = 0; j < rcNum; j++){ 
-			this.laserGrid[i][j] = "";
-		}
-	}
-
+var Game = function(levels) {
 	this.levelCounter = 0;
+	this.levels = levels;
+
+	this._resetLevel();
 };
+
+Game.prototype.checkStatus = function() {
+	if (this._lasersCompleted()) {
+		console.log('Level completed');
+		this.levelCounter++;
+		this._resetLevel()
+		return true;
+	} else { 
+		return false;
+	}
+}
 
 Game.prototype.swap = function(srcX, srcY, destX, destY) {
 	var temp = this.levelGrid[srcY][srcX];
@@ -38,6 +40,38 @@ Game.prototype.emitLasers = function() {
 			if (tile[0] == 'laser') {
 				this._emit(tile[1], tile[2], x, y);
 			}
+		}
+	}
+};
+
+Game.prototype._lasersCompleted = function() {
+	var sCompleted = this.colorsCompleted.sort();
+	var sToComplete = this.colorsToComplete.sort();
+
+	if (sCompleted.length != sToComplete.length) {
+		return false
+	}
+
+	var bool = true;
+	for (var i = 0; i < sCompleted.length; i++) {
+		bool = bool && (sCompleted[i] == sToComplete[i]);
+	}
+
+	return bool;
+}
+
+Game.prototype._resetLevel = function() {
+	this.levelGrid = this.levels[this.levelCounter].grid;
+	this.laserGrid = [];
+	this.rcNum = this.levels[this.levelCounter].rcNum;
+	this.colorsToComplete = this.levels[this.levelCounter].colors;
+	this.colorsCompleted = [];
+
+	// reset laserGrid
+	for(var i = 0; i < this.rcNum; i++) {
+		this.laserGrid[i] = [];
+		for(var j = 0; j < this.rcNum; j++){ 
+			this.laserGrid[i][j] = "";
 		}
 	}
 };
@@ -91,6 +125,7 @@ Game.prototype._emit = function(color, direction, tileX, tileY) {
 		}
 	} else if (tile[0] == 'hole') {
 		if (tile[1] == color) {
+			this.colorsCompleted.push(color);
 			console.log('Red laser hit red hole.');
 		}
 		return;

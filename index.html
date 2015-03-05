@@ -14,14 +14,21 @@
 <body>
 	<script>
 		$(document).ready(function() {
-			createGridContainer(levelOne);
-
-			var laserGame = new Game(levelOne.grid, levelOne.rcNum);
+			var laserGame = new Game(levels);
+			
+			createGridContainer(laserGame.levelGrid, laserGame.rcNum);
 
 			laserGame.emitLasers();
 			overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 
 			var selected = null;
+
+			$(".next").click(function() {
+				$(".grid-container").empty();
+				createGridContainer(laserGame.levelGrid, laserGame.rcNum);
+				laserGame.emitLasers();
+				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+			});
 
 			$(".grid-cell").click(function() {
 				if (!selected) {
@@ -42,6 +49,9 @@
 
 					laserGame.emitLasers();
 					overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+					if (laserGame.checkStatus()) {
+						$(".next").show();
+					}
 
 					selected = null;
 				}
@@ -55,7 +65,8 @@
 
 		<div class="above-game">
 			<div class="game-intro">Connect the lasers to their respective holes with a combination of mirrors, portals, and other blocks!</div>
-			<div class="score">Moves made: <div class="move-counter">0</div></div>
+			<div class="score">Moves made: <span class="move-counter">0</span></div>
+			<div class="next">Next Level</div>
 		</div>
 
 		<div class="game-container">
