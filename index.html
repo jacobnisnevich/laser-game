@@ -52,8 +52,13 @@
 
 				laserGame.emitLasers();
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-				if (laserGame.checkStatus()) {
+				var status = laserGame.checkStatus();
+				if (status == 'level-completed') {
 					$(".game-message").fadeIn("slow");
+				} else if (status == 'game-completed') {
+					$(".game-message").find("p").html("Game Completed!");
+					$(".game-message").fadeIn("slow");
+					$(".lower").empty();
 				}
 
 				selected = null;

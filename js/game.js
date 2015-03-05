@@ -9,10 +9,14 @@ Game.prototype.checkStatus = function() {
 	if (this._lasersCompleted()) {
 		console.log('Level completed');
 		this.levelCounter++;
-		this._resetLevel()
-		return true;
+		if (this.levelCounter == this.levels.length) {
+			return 'game-completed';
+		} else {
+			this._resetLevel();
+			return 'level-completed';
+		}
 	} else { 
-		return false;
+		return 'level-not-completed';
 	}
 }
 
@@ -30,6 +34,9 @@ Game.prototype.swap = function(srcX, srcY, destX, destY) {
 };
 
 Game.prototype.emitLasers = function() {
+	// reset colorsCompleted
+	this.colorsCompleted = [];
+
 	// find all lasers and emit them in correct direction
 	for (var y = 0; y < this.rcNum; y++) {
 		for (var x = 0; x < this.rcNum; x++) {
@@ -126,7 +133,7 @@ Game.prototype._emit = function(color, direction, tileX, tileY) {
 	} else if (tile[0] == 'hole') {
 		if (tile[1] == color) {
 			this.colorsCompleted.push(color);
-			console.log('Red laser hit red hole.');
+			console.log(color + ' laser hit red hole.');
 		}
 		return;
 	}

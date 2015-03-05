@@ -11,11 +11,11 @@ var levels = [ {
 	}, {
 		colors: ['red', 'green'],
 		rcNum: 7,
-		grid:[['corner-left-right','wall','wall','wall','wall','wall','corner-right-left'],
+		grid:[['corner-left-right','hole-red-down','wall','wall','wall','wall','corner-right-left'],
 			 ['wall','floor','floor','floor','floor','floor','wall'],
-			 ['wall','floor','floor','floor','floor','floor','wall'],
+			 ['wall','floor','floor','floor','floor','floor','laser-red-left'],
 			 ['laser-green-right','floor','mirror-left-right','floor','floor','floor','wall'],
-			 ['wall','floor','floor','floor','floor','floor','wall'],
+			 ['wall','floor','floor','floor','mirror-left-right','floor','wall'],
 			 ['wall','floor','floor','floor','floor','floor','wall'],
 			 ['corner-right-left','wall','wall','hole-green-up','wall','wall','corner-left-right']]
 	}
