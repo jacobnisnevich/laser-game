@@ -84,3 +84,48 @@ hr {
 .next {
 	display: none;
 }
+
+.game-container .game-message {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(238, 228, 218, 0.5);
+	z-index: 100;
+	text-align: center;
+}
+.game-container .game-message p {
+	font-size: 48px;
+	font-weight: bold;
+	height: 48px;
+	line-height: 48px;
+	margin-top: 150px; 
+	color: #666;
+}
+.game-container .game-message .lower {
+	display: block;
+	margin-top: 80px; 
+}
+.game-container .game-message a {
+	display: inline-block;
+	background: #666;
+	padding: 0 20px;
+	text-decoration: none;
+	color: #EEE;
+	height: 40px;
+	line-height: 42px;
+	margin-left: 9px; 
+	-webkit-transition: all .15s ease-in;
+	-moz-transition: all .15s ease-in;
+	-ms-transition: all .15s ease-in;
+	-o-transition: all .15s ease-in;
+	transition: all .15s ease-in;
+}
+.game-container .game-message a:hover {
+	background: #333;
+}
+.game-container .game-message a.next-button {
+	display: none; 
+}
