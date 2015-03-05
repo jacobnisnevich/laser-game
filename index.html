@@ -13,53 +13,52 @@
 </head>
 <body>
 	<script>
-		$(document).ready(function() {
-			var laserGame = new Game(levels);
-			
-			createGridContainer(laserGame.levelGrid, laserGame.rcNum);
+		var selected = null;
 
+		var laserGame = new Game(levels);
+
+		$(document).ready(function() {				
+			createGridContainer(laserGame.levelGrid, laserGame.rcNum);
 			laserGame.emitLasers();
 			overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 
-			var selected = null;
-
 			$(".next-button").click(function() {
 				$(".game-message").hide();
-				$(".next-button").hide();
 				$(".grid-container").empty();
 				createGridContainer(laserGame.levelGrid, laserGame.rcNum);
 				laserGame.emitLasers();
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 			});
 
-			$(".grid-cell").click(function() {
-				if (!selected) {
-					$(this).addClass("selected");
-					selected = $(this);
-				} else {
-					removeLasers(laserGame.rcNum);
-					var css = selected.css("background-image")
-					selected.css("background-image", $(this).css("background-image"));
-					$(this).css("background-image", css);
-					
-					laserGame.swap(getXByTile(selected), getYByTile(selected), getXByTile($(this)), getYByTile($(this)));
-
-					selected.removeClass("selected");
-					if (selected != $(this)) {
-						$(".move-counter").html(Number($(".move-counter").html()) + 1)
-					}
-
-					laserGame.emitLasers();
-					overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-					if (laserGame.checkStatus()) {
-						$(".game-message").fadeIn("slow");
-						$(".next-button").fadeIn("slow").css("display","inline-block");
-					}
-
-					selected = null;
-				}
-			});
+			$(".grid-container").on('click', '.grid-cell', tileSwap);
 		});
+
+		function tileSwap() {
+			if (!selected) {
+				$(this).addClass("selected");
+				selected = $(this);
+			} else {
+				removeLasers(laserGame.rcNum);
+				var css = selected.css("background-image")
+				selected.css("background-image", $(this).css("background-image"));
+				$(this).css("background-image", css);
+				
+				laserGame.swap(getXByTile(selected), getYByTile(selected), getXByTile($(this)), getYByTile($(this)));
+
+				selected.removeClass("selected");
+				if (selected != $(this)) {
+					$(".move-counter").html(Number($(".move-counter").html()) + 1)
+				}
+
+				laserGame.emitLasers();
+				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+				if (laserGame.checkStatus()) {
+					$(".game-message").fadeIn("slow");
+				}
+
+				selected = null;
+			}
+		}
 	</script>
 	<div class="container">
 		<div class="heading">
