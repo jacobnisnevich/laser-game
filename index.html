@@ -22,8 +22,21 @@
 			laserGame.emitLasers();
 			overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 
+			if (localStorage.getItem('level' + laserGame.levelCounter) !== null) {
+				$(".best-counter").html(localStorage.getItem('level' + laserGame.levelCounter));
+			} else {
+				$(".best-counter").html(0);
+			}
+
 			$(".next-button").click(function() {
 				$(".game-message").hide();
+				$(".move-counter").html(0);
+				if (localStorage.getItem('level' + laserGame.levelCounter)) {
+					$(".best-counter").html(localStorage.getItem('level' + laserGame.levelCounter));
+				} else {
+					$(".best-counter").html(0);
+				}
+
 				$(".grid-container").empty();
 				createGridContainer(laserGame.levelGrid, laserGame.rcNum);
 				laserGame.emitLasers();
@@ -52,7 +65,19 @@
 
 				laserGame.emitLasers();
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+
 				var status = laserGame.checkStatus();
+
+				if (status != 'level-not-completed') {
+					// store best score
+					if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
+						localStorage.setItem('level' + (laserGame.levelCounter - 1), $(".move-counter").html());
+					} else {
+						var bestScore = Math.min(localStorage.getItem('level' + (laserGame.levelCounter - 1)), $(".move-counter").html());
+						localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
+					}
+				}
+
 				if (status == 'level-completed') {
 					$(".game-message").fadeIn("slow");
 				} else if (status == 'game-completed') {
@@ -73,6 +98,7 @@
 		<div class="above-game">
 			<div class="game-intro">Connect the lasers to their respective holes with a combination of mirrors, portals, and other blocks!</div>
 			<div class="score">Moves made: <span class="move-counter">0</span></div>
+			<div class="best-score">High score: <span class="best-counter">0</span></div>
 		</div>
 
 		<div class="game-container">
