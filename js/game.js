@@ -136,6 +136,8 @@ Game.prototype._emit = function(color, direction, tileX, tileY) {
 			console.log(color + ' laser hit red hole.');
 		}
 		return;
+	} else if (tile[0] == 'laser' && tile[1] != color) {
+		return;
 	}
 	switch(nextDir) {
 		case 'up':
