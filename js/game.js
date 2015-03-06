@@ -28,7 +28,7 @@ Game.prototype.swap = function(srcX, srcY, destX, destY) {
 	for(var i = 0; i < this.rcNum; i++) {
 		this.laserGrid[i] = [];
 		for(var j = 0; j < this.rcNum; j++){ 
-			this.laserGrid[i][j] = "";
+			this.laserGrid[i][j] = [];
 		}
 	}
 };
@@ -78,7 +78,7 @@ Game.prototype._resetLevel = function() {
 	for(var i = 0; i < this.rcNum; i++) {
 		this.laserGrid[i] = [];
 		for(var j = 0; j < this.rcNum; j++){ 
-			this.laserGrid[i][j] = "";
+			this.laserGrid[i][j] = [];
 		}
 	}
 };
@@ -101,34 +101,34 @@ Game.prototype._emit = function(color, direction, tileX, tileY) {
 		nextDir = getNextDir(mirrorDir, nextDir);
 		if (direction == 'right') {
 			if (nextDir == 'up') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_nw";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_nw");
 			} else if (nextDir == 'down') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_sw";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_sw");
 			}
 		} else if (direction == 'left') {
 			if (nextDir == 'up') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_ne";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_ne");
 			} else if (nextDir == 'down') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_se";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_se");
 			}
 		} else if (direction == 'up') {
 			if (nextDir == 'left') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_sw";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_sw");
 			} else if (nextDir == 'right') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_se";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_se");
 			}
 		} else if (direction == 'down') {
 			if (nextDir == 'left') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_nw";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_nw");
 			} else if (nextDir == 'right') {
-				this.laserGrid[tileY][tileX] = "beam_" + color + "_ne";
+				this.laserGrid[tileY][tileX].push("beam_" + color + "_ne");
 			}
 		}
 	} else if (tile[0] == 'floor') {
 		if (direction == 'right' || direction == 'left') {
-			this.laserGrid[tileY][tileX] = "beam_" + color + "_horizontal";
+			this.laserGrid[tileY][tileX].push("beam_" + color + "_horizontal");
 		} else {
-			this.laserGrid[tileY][tileX] = "beam_" + color + "_vertical";
+			this.laserGrid[tileY][tileX].push("beam_" + color + "_vertical");
 		}
 	} else if (tile[0] == 'hole') {
 		if (tile[1] == color) {

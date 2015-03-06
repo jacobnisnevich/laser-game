@@ -1,8 +1,10 @@
 function overlayLasers(laserGrid, rcNum) {
 	for (var y = 0; y < rcNum; y++) {
 		for (var x = 0; x < rcNum; x++) {
-			if (laserGrid[y][x] != '') {
-				getTileByCoord(y, x).css("background-image", "url(images/" + laserGrid[y][x] + ".png), " + getTileByCoord(y, x).css("background-image"));
+			for (var laser = 0; laser < laserGrid[y][x].length; laser++) {
+				if (laserGrid[y][x][laser] != '') {
+					getTileByCoord(y, x).css("background-image", "url(images/" + laserGrid[y][x][laser] + ".png), " + getTileByCoord(y, x).css("background-image"));
+				}
 			}
 		}
 	}
