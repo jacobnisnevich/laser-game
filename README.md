@@ -13,21 +13,21 @@ Simple puzzle game involving lasers, mirrors, and portals
       * Holes
     * Create function that checks if tile is immovable
     * Utilize function in swap
-  * game.js file
-    * Contains current level data (with update swaps)
-  * level.js file
-    * Make an array of level objects
+  * ~~game.js file~~
+    * ~~Contains current level data (with update swaps)~~
+  * ~~level.js file~~
+    * ~~Make an array of level objects~~
   * ~~Laser emitting~~
     * ~~Update lasers after every swap~~
     * ~~Initial laser emitting~~
     * ~~Mirror behavior~~
-  * Check if laser hits appropriate hole
-  * Level counter that gets updated in document.ready
+  * ~~Check if laser hits appropriate hole~~
+  * ~~Level counter that gets updated in document.ready~~
   * Needed images
-    * Green lasers
-      * Diagonal beams
-      * Green emitters
-      * Green holes
+    * ~~Green lasers~~
+      * ~~Diagonal beams~~
+      * ~~Green emitters~~
+      * ~~Green holes~~
     * Blue lasers
       * Vertical beams
       * Horizontal beams
