@@ -43,7 +43,33 @@
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 			});
 
-			$(".grid-container").on('click', '.grid-cell', tileSwap);
+			// Arrow controls
+			$(".grid-container").on('click', '.grid-cell', select);
+			
+			// Point-and-click controls
+			// $(".grid-container").on('click', '.grid-cell', tileSwap);
+
+			$("body").keydown(function(e) {
+				if (selected) {
+					if (e.which == 37) {
+						// Left pressed
+						var otherTile = getTileByCoord(getYByTile(selected), getXByTile(selected) - 1);
+						tileSwapKeys(selected, otherTile);
+					} else if (e.which == 38) {
+						// Up pressed
+						var otherTile = getTileByCoord(getYByTile(selected) - 1, getXByTile(selected));
+						tileSwapKeys(selected, otherTile);
+					} else if (e.which == 39) {
+						// Right pressed
+						var otherTile = getTileByCoord(getYByTile(selected), getXByTile(selected) + 1);
+						tileSwapKeys(selected, otherTile);
+					} else if (e.which == 40) {
+						// Down pressed
+						var otherTile = getTileByCoord(getYByTile(selected) + 1, getXByTile(selected));
+						tileSwapKeys(selected, otherTile);
+					}
+				}
+			});
 		});
 
 		function tileSwap() {
@@ -57,17 +83,13 @@
 				$(this).css("background-image", css);
 				
 				laserGame.swap(getXByTile(selected), getYByTile(selected), getXByTile($(this)), getYByTile($(this)));
-
 				selected.removeClass("selected");
 				if (selected != $(this)) {
 					$(".move-counter").html(Number($(".move-counter").html()) + 1)
 				}
-
 				laserGame.emitLasers();
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-
 				var status = laserGame.checkStatus();
-
 				if (status != 'level-not-completed') {
 					// store best score
 					if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
@@ -77,7 +99,6 @@
 						localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
 					}
 				}
-
 				if (status == 'level-completed') {
 					$(".game-message").fadeIn("slow");
 				} else if (status == 'game-completed') {
@@ -85,7 +106,6 @@
 					$(".game-message").fadeIn("slow");
 					$(".lower").empty();
 				}
-
 				selected = null;
 			}
 		}

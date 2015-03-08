@@ -59,3 +59,55 @@ function getTileByCoord(row, col) {
 	var element = $(".grid-container").children().children().get(index);
 	return $(element);
 }
+
+function select() {
+	if (!selected) {
+		$(this).addClass("selected");
+		selected = $(this);
+	} else if (!selected.is($(this))) {
+		selected.removeClass("selected");
+		$(this).addClass("selected");
+		selected = $(this);
+	} else if (selected.is($(this))) {
+		selected.removeClass("selected");
+		selected = null;
+	}
+}
+
+function tileSwapKeys(selectedTile, otherTile) {
+	removeLasers(laserGame.rcNum);
+	var css = selectedTile.css("background-image")
+	selectedTile.css("background-image", otherTile.css("background-image"));
+	otherTile.css("background-image", css);
+	
+	laserGame.swap(getXByTile(selectedTile), getYByTile(selectedTile), getXByTile(otherTile), getYByTile(otherTile));
+
+	selected.removeClass("selected");
+	$(".move-counter").html(Number($(".move-counter").html()) + 1)
+
+	laserGame.emitLasers();
+	overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+
+	selected = otherTile;
+	selected.addClass("selected");
+
+	var status = laserGame.checkStatus();
+
+	if (status != 'level-not-completed') {
+		// store best score
+		if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
+			localStorage.setItem('level' + (laserGame.levelCounter - 1), $(".move-counter").html());
+		} else {
+			var bestScore = Math.min(localStorage.getItem('level' + (laserGame.levelCounter - 1)), $(".move-counter").html());
+			localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
+		}
+	}
+
+	if (status == 'level-completed') {
+		$(".game-message").fadeIn("slow");
+	} else if (status == 'game-completed') {
+		$(".game-message").find("p").html("Game Completed!");
+		$(".game-message").fadeIn("slow");
+		$(".lower").empty();
+	}
+}
