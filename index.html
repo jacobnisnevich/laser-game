@@ -13,10 +13,6 @@
 </head>
 <body>
 	<script>
-		var selected = null;
-
-		var laserGame = new Game(levels);
-
 		$(document).ready(function() {				
 			createGridContainer(laserGame.levelGrid, laserGame.rcNum);
 			laserGame.emitLasers();
@@ -43,14 +39,34 @@
 				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 			});
 
-			// Arrow controls
-			$(".grid-container").on('click', '.grid-cell', select);
-			
-			// Point-and-click controls
-			// $(".grid-container").on('click', '.grid-cell', tileSwap);
+			$(".reset-button").click(restartLevel);
+
+			$(".controls-button").click(function() {
+				arrowControls = !arrowControls;
+			});
+
+			$(".restart-game-button").click(function() {
+				laserGame.levelCounter = 0;
+				restartLevel();
+			});
+
+			$(".reset-scores-button").click(function() {
+				localStorage.clear();
+				$(".best-counter").html(0);
+			});
+
+			$(".grid-container").on('click', '.grid-cell', function() {
+				if (arrowControls) {
+					// Arrow controls
+					select($(this));
+				} else {
+					// Point-and-click controls
+					tileSwap($(this));
+				}
+			});
 
 			$("body").keydown(function(e) {
-				if (selected) {
+				if (selected && arrowControls) {
 					if (e.which == 37) {
 						// Left pressed
 						var otherTile = getTileByCoord(getYByTile(selected), getXByTile(selected) - 1);
@@ -72,43 +88,6 @@
 			});
 		});
 
-		function tileSwap() {
-			if (!selected) {
-				$(this).addClass("selected");
-				selected = $(this);
-			} else {
-				removeLasers(laserGame.rcNum);
-				var css = selected.css("background-image")
-				selected.css("background-image", $(this).css("background-image"));
-				$(this).css("background-image", css);
-				
-				laserGame.swap(getXByTile(selected), getYByTile(selected), getXByTile($(this)), getYByTile($(this)));
-				selected.removeClass("selected");
-				if (selected != $(this)) {
-					$(".move-counter").html(Number($(".move-counter").html()) + 1)
-				}
-				laserGame.emitLasers();
-				overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-				var status = laserGame.checkStatus();
-				if (status != 'level-not-completed') {
-					// store best score
-					if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
-						localStorage.setItem('level' + (laserGame.levelCounter - 1), $(".move-counter").html());
-					} else {
-						var bestScore = Math.min(localStorage.getItem('level' + (laserGame.levelCounter - 1)), $(".move-counter").html());
-						localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
-					}
-				}
-				if (status == 'level-completed') {
-					$(".game-message").fadeIn("slow");
-				} else if (status == 'game-completed') {
-					$(".game-message").find("p").html("Game Completed!");
-					$(".game-message").fadeIn("slow");
-					$(".lower").empty();
-				}
-				selected = null;
-			}
-		}
 	</script>
 	<div class="container">
 		<div class="heading">
@@ -130,6 +109,15 @@
 			</div>
 
 			<div class="grid-container">
+			</div>
+		</div>
+
+		<div class="below-game">
+			<div class="option-buttons">
+				<span class="reset-button">Restart Level</span>
+				<span class="controls-button">Toggle Controls</span>
+				<span class="restart-game-button">Restart Game</span>
+				<span class="reset-scores-button">Clear Scores</span>
 			</div>
 		</div>
 	</div>

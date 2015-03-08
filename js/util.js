@@ -1,3 +1,7 @@
+var selected = null;
+var arrowControls = true;
+var laserGame = new Game(levels);
+
 function overlayLasers(laserGrid, rcNum) {
 	for (var y = 0; y < rcNum; y++) {
 		for (var x = 0; x < rcNum; x++) {
@@ -60,15 +64,15 @@ function getTileByCoord(row, col) {
 	return $(element);
 }
 
-function select() {
+function select(tile) {
 	if (!selected) {
-		$(this).addClass("selected");
-		selected = $(this);
-	} else if (!selected.is($(this))) {
+		tile.addClass("selected");
+		selected = tile;
+	} else if (!selected.is(tile)) {
 		selected.removeClass("selected");
-		$(this).addClass("selected");
-		selected = $(this);
-	} else if (selected.is($(this))) {
+		tile.addClass("selected");
+		selected = tile;
+	} else if (selected.is(tile)) {
 		selected.removeClass("selected");
 		selected = null;
 	}
@@ -104,10 +108,64 @@ function tileSwapKeys(selectedTile, otherTile) {
 	}
 
 	if (status == 'level-completed') {
+		$(".game-message").find("p").html("Level Completed!");
 		$(".game-message").fadeIn("slow");
+		$(".lower").show();
 	} else if (status == 'game-completed') {
 		$(".game-message").find("p").html("Game Completed!");
 		$(".game-message").fadeIn("slow");
-		$(".lower").empty();
+		$(".lower").hide();
+	}
+}
+
+function restartLevel() {
+	laserGame.resetLevel();
+	$(".game-message").hide();
+
+	$(".grid-container").empty();
+	createGridContainer(laserGame.levelGrid, laserGame.rcNum);
+	laserGame.emitLasers();
+	overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+
+	$(".move-counter").html(0);
+}
+
+function tileSwap(tile) {
+	if (!selected) {
+		tile.addClass("selected");
+		selected = tile;
+	} else {
+		removeLasers(laserGame.rcNum);
+		var css = selected.css("background-image")
+		selected.css("background-image", tile.css("background-image"));
+		tile.css("background-image", css);
+		
+		laserGame.swap(getXByTile(selected), getYByTile(selected), getXByTile(tile), getYByTile(tile));
+		selected.removeClass("selected");
+		if (selected != tile) {
+			$(".move-counter").html(Number($(".move-counter").html()) + 1)
+		}
+		laserGame.emitLasers();
+		overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+		var status = laserGame.checkStatus();
+		if (status != 'level-not-completed') {
+			// store best score
+			if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
+				localStorage.setItem('level' + (laserGame.levelCounter - 1), $(".move-counter").html());
+			} else {
+				var bestScore = Math.min(localStorage.getItem('level' + (laserGame.levelCounter - 1)), $(".move-counter").html());
+				localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
+			}
+		}
+		if (status == 'level-completed') {
+			$(".game-message").find("p").html("Level Completed!");
+			$(".game-message").fadeIn("slow");
+			$(".lower").show();
+		} else if (status == 'game-completed') {
+			$(".game-message").find("p").html("Game Completed!");
+			$(".game-message").fadeIn("slow");
+			$(".lower").hide();
+		}
+		selected = null;
 	}
 }

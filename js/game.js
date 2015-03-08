@@ -2,7 +2,7 @@ var Game = function(levels) {
 	this.levelCounter = 0;
 	this.levels = levels;
 
-	this._resetLevel();
+	this.resetLevel();
 };
 
 Game.prototype.checkStatus = function() {
@@ -12,7 +12,7 @@ Game.prototype.checkStatus = function() {
 		if (this.levelCounter == this.levels.length) {
 			return 'game-completed';
 		} else {
-			this._resetLevel();
+			this.resetLevel();
 			return 'level-completed';
 		}
 	} else { 
@@ -51,6 +51,22 @@ Game.prototype.emitLasers = function() {
 	}
 };
 
+Game.prototype.resetLevel = function() {
+	this.levelGrid = JSON.parse(JSON.stringify(this.levels[this.levelCounter].grid));
+	this.laserGrid = [];
+	this.rcNum = this.levels[this.levelCounter].rcNum;
+	this.colorsToComplete = this.levels[this.levelCounter].colors;
+	this.colorsCompleted = [];
+
+	// reset laserGrid
+	for(var i = 0; i < this.rcNum; i++) {
+		this.laserGrid[i] = [];
+		for(var j = 0; j < this.rcNum; j++){ 
+			this.laserGrid[i][j] = [];
+		}
+	}
+};
+
 Game.prototype._lasersCompleted = function() {
 	var sCompleted = this.colorsCompleted.sort();
 	var sToComplete = this.colorsToComplete.sort();
@@ -66,22 +82,6 @@ Game.prototype._lasersCompleted = function() {
 
 	return bool;
 }
-
-Game.prototype._resetLevel = function() {
-	this.levelGrid = this.levels[this.levelCounter].grid;
-	this.laserGrid = [];
-	this.rcNum = this.levels[this.levelCounter].rcNum;
-	this.colorsToComplete = this.levels[this.levelCounter].colors;
-	this.colorsCompleted = [];
-
-	// reset laserGrid
-	for(var i = 0; i < this.rcNum; i++) {
-		this.laserGrid[i] = [];
-		for(var j = 0; j < this.rcNum; j++){ 
-			this.laserGrid[i][j] = [];
-		}
-	}
-};
 
 Game.prototype._parseTile = function(tileX, tileY) {
 	var string = this.levelGrid[tileY][tileX];

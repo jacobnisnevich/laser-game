@@ -96,6 +96,7 @@ hr {
 	z-index: 100;
 	text-align: center;
 }
+
 .game-container .game-message p {
 	font-size: 48px;
 	font-weight: bold;
@@ -104,10 +105,12 @@ hr {
 	margin-top: 150px; 
 	color: #666;
 }
+
 .game-container .game-message .lower {
 	display: block;
 	margin-top: 80px; 
 }
+
 .game-container .game-message a {
 	display: inline-block;
 	background: #666;
@@ -123,9 +126,29 @@ hr {
 	-o-transition: all .15s ease-in;
 	transition: all .15s ease-in;
 }
+
 .game-container .game-message a:hover {
 	background: #333;
 }
-.game-container .game-message a.next-button {
-	
+
+.below-game {
+	padding-top: 20px;
+}
+
+.option-buttons span {
+	background: #CCC;
+	font-size: 15px;
+	padding: 7px;
+	margin: 4px;
+	color: #333;
+	-webkit-transition: all .1s ease-in;
+	-moz-transition: all .1s ease-in;
+	-ms-transition: all .1s ease-in;
+	-o-transition: all .1s ease-in;
+	transition: all .1s ease-in;
+}
+
+.option-buttons span:hover {
+	background: #999;
+	cursor: pointer;
 }
