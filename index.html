@@ -7,6 +7,7 @@
 	<link href="styles/main.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<!--<script src="lib/jquery.backgroundpos.min.js"></script>-->
 	<script src="js/levels.js"></script>
 	<script src="js/game.js"></script>
 	<script src="js/util.js"></script>
@@ -70,19 +71,19 @@
 					if (e.which == 37) {
 						// Left pressed
 						var otherTile = getTileByCoord(getYByTile(selected), getXByTile(selected) - 1);
-						tileSwapKeys(selected, otherTile);
+						tileSwapKeys(selected, otherTile, 'left');
 					} else if (e.which == 38) {
 						// Up pressed
 						var otherTile = getTileByCoord(getYByTile(selected) - 1, getXByTile(selected));
-						tileSwapKeys(selected, otherTile);
+						tileSwapKeys(selected, otherTile, 'up');
 					} else if (e.which == 39) {
 						// Right pressed
 						var otherTile = getTileByCoord(getYByTile(selected), getXByTile(selected) + 1);
-						tileSwapKeys(selected, otherTile);
+						tileSwapKeys(selected, otherTile, 'right');
 					} else if (e.which == 40) {
 						// Down pressed
 						var otherTile = getTileByCoord(getYByTile(selected) + 1, getXByTile(selected));
-						tileSwapKeys(selected, otherTile);
+						tileSwapKeys(selected, otherTile, 'down');
 					}
 				}
 			});

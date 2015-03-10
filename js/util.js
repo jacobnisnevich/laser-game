@@ -78,7 +78,7 @@ function select(tile) {
 	}
 }
 
-function tileSwapKeys(selectedTile, otherTile) {
+function tileSwapKeys(selectedTile, otherTile, direction) {
 	removeLasers(laserGame.rcNum);
 	var css = selectedTile.css("background-image")
 	selectedTile.css("background-image", otherTile.css("background-image"));
