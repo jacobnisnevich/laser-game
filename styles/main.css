@@ -62,13 +62,26 @@ hr {
 	z-index: 1; 
 }
 
-.grid-cell {
+.player-container {
+	position: absolute;
+	z-index: 2; 
+}
+
+.grid-container .grid-cell {
 	width: 64px;
 	height: 64px;
 	margin-right: 2px;
 	margin-bottom: 2px;
 	float: left;
 	background: #CCC; 
+}
+
+.player-container .grid-cell {
+	width: 64px;
+	height: 64px;
+	margin-right: 2px;
+	margin-bottom: 2px;
+	float: left; 
 }
 
 .selected {

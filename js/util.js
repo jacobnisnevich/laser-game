@@ -1,14 +1,14 @@
 var selected = null;
 var arrowControls = true;
+var playerControls = true;
 var laserGame = new Game(levels);
-var player = new Player(1, 1);
 
 function overlayLasers(laserGrid, rcNum) {
 	for (var y = 0; y < rcNum; y++) {
 		for (var x = 0; x < rcNum; x++) {
 			for (var laser = 0; laser < laserGrid[y][x].length; laser++) {
 				if (laserGrid[y][x][laser] != '') {
-					getTileByCoord(y, x).css("background-image", "url(images/" + laserGrid[y][x][laser] + ".png), " + getTileByCoord(y, x).css("background-image"));
+					getTileByCoord('grid-container', y, x).css("background-image", "url(images/" + laserGrid[y][x][laser] + ".png), " + getTileByCoord('grid-container', y, x).css("background-image"));
 				}
 			}
 		}
@@ -18,35 +18,39 @@ function overlayLasers(laserGrid, rcNum) {
 function removeLasers(rcNum) {
 	for (var y = 0; y < rcNum; y++) {
 		for (var x = 0; x < rcNum; x++) {
-			var background = getTileByCoord(y, x).css("background-image");
+			var background = getTileByCoord('grid-container', y, x).css("background-image");
 			var numImages = background.split(" ").length;
 			if (numImages > 1) {
-				getTileByCoord(y, x).css("background-image", background.split(" ")[numImages - 1])
+				getTileByCoord('grid-container', y, x).css("background-image", background.split(" ")[numImages - 1])
 			}
 		}
 	}
 }
 
-function createGridContainer(grid, rcNum) {
+function createGridContainer(container, grid, rcNum) {
 	for (var i = 0; i < rcNum; i++) {
-		$(".grid-container").append('<div class="grid-row"></div>');
+		$("." + container).append('<div class="grid-row"></div>');
 	}
 
 	for (var j = 0; j < rcNum; j++) {
-		$(".grid-row").append('<div class ="grid-cell"></div>');
+		$("." + container).children().append('<div class ="grid-cell"></div>');
 	}
 
-	loadLevelData(grid, rcNum);
+	loadLevelData(container, grid, rcNum);
 }
 
-function loadLevelData(grid, rcNum) {
+function loadLevelData(container, grid, rcNum) {
 	var tile;
 
 	for (var i = 0; i < rcNum; i++) {
 		for (var j = 0; j < rcNum; j++) {
-			tile = getTileByCoord(i, j);
-			imageCSS = "url(images/" + grid[i][j].replace(/-/g, '_') + ".png)";
-			tile.css("background-image", imageCSS);
+			tile = getTileByCoord(container, i, j);
+			if (grid[i][j] != "") {
+				imageCSS = "url(images/" + grid[i][j].replace(/-/g, '_') + ".png)";
+				tile.css("background-image", imageCSS);
+			} else {
+				tile.css("background-image", "");
+			}
 		}
 	}
 }
@@ -59,9 +63,9 @@ function getYByTile(tile) {
 	return tile.parent().index();
 }
 
-function getTileByCoord(row, col) {
+function getTileByCoord(container, row, col) {
 	var index = row * 7 + col;
-	var element = $(".grid-container").children().children().get(index);
+	var element = $("." + container).children().children().get(index);
 	return $(element);
 }
 
@@ -79,23 +83,7 @@ function select(tile) {
 	}
 }
 
-function tileSwapKeys(selectedTile, otherTile, direction) {
-	removeLasers(laserGame.rcNum);
-	var css = selectedTile.css("background-image")
-	selectedTile.css("background-image", otherTile.css("background-image"));
-	otherTile.css("background-image", css);
-	
-	laserGame.swap(getXByTile(selectedTile), getYByTile(selectedTile), getXByTile(otherTile), getYByTile(otherTile));
-
-	selected.removeClass("selected");
-	$(".move-counter").html(Number($(".move-counter").html()) + 1)
-
-	laserGame.emitLasers();
-	overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-
-	selected = otherTile;
-	selected.addClass("selected");
-
+function checkStatus() {
 	var status = laserGame.checkStatus();
 
 	if (status != 'level-not-completed') {
@@ -124,7 +112,8 @@ function restartLevel() {
 	$(".game-message").hide();
 
 	$(".grid-container").empty();
-	createGridContainer(laserGame.levelGrid, laserGame.rcNum);
+	createGridContainer('grid-container', laserGame.levelGrid, laserGame.rcNum);
+	createGridContainer('player-container', laserGame.player.grid, laserGame.player.gridSize);
 	laserGame.emitLasers();
 	overlayLasers(laserGame.laserGrid, laserGame.rcNum);
 
@@ -148,25 +137,27 @@ function tileSwap(tile) {
 		}
 		laserGame.emitLasers();
 		overlayLasers(laserGame.laserGrid, laserGame.rcNum);
-		var status = laserGame.checkStatus();
-		if (status != 'level-not-completed') {
-			// store best score
-			if (localStorage.getItem('level' + (laserGame.levelCounter - 1)) === null) {
-				localStorage.setItem('level' + (laserGame.levelCounter - 1), $(".move-counter").html());
-			} else {
-				var bestScore = Math.min(localStorage.getItem('level' + (laserGame.levelCounter - 1)), $(".move-counter").html());
-				localStorage.setItem('level' + (laserGame.levelCounter - 1), bestScore);
-			}
-		}
-		if (status == 'level-completed') {
-			$(".game-message").find("p").html("Level Completed!");
-			$(".game-message").fadeIn("slow");
-			$(".lower").show();
-		} else if (status == 'game-completed') {
-			$(".game-message").find("p").html("Game Completed!");
-			$(".game-message").fadeIn("slow");
-			$(".lower").hide();
-		}
-		selected = null;
+		
+		checkStatus();
 	}
+}
+
+function tileSwapKeys(selectedTile, otherTile, direction) {
+	removeLasers(laserGame.rcNum);
+	var css = selectedTile.css("background-image")
+	selectedTile.css("background-image", otherTile.css("background-image"));
+	otherTile.css("background-image", css);
+	
+	laserGame.swap(getXByTile(selectedTile), getYByTile(selectedTile), getXByTile(otherTile), getYByTile(otherTile));
+
+	selected.removeClass("selected");
+	$(".move-counter").html(Number($(".move-counter").html()) + 1)
+
+	laserGame.emitLasers();
+	overlayLasers(laserGame.laserGrid, laserGame.rcNum);
+
+	selected = otherTile;
+	selected.addClass("selected");
+
+	checkStatus();
 }

@@ -1,5 +1,6 @@
 var levels = [ {
 		colors: ['red'],
+		playerPos: [2, 1],
 		rcNum: 7,
 		grid:[['corner-left-right','wall','wall','wall','wall','wall','corner-right-left'],
 			 ['wall','mirror-right-left','floor','mirror-right-left','floor','floor','wall'],
@@ -10,6 +11,7 @@ var levels = [ {
 			 ['corner-right-left','wall','wall','hole-red-up','wall','wall','corner-left-right']]
 	}, {
 		colors: ['red', 'green'],
+		playerPos: [1, 1],
 		rcNum: 7,
 		grid:[['corner-left-right','hole-red-down','wall','wall','wall','wall','corner-right-left'],
 			 ['wall','floor','floor','floor','mirror-right-left','floor','wall'],

@@ -25,12 +25,7 @@ Game.prototype.swap = function(srcX, srcY, destX, destY) {
 	this.levelGrid[srcY][srcX] = this.levelGrid[destY][destX];
 	this.levelGrid[destY][destX] = temp;
 
-	for(var i = 0; i < this.rcNum; i++) {
-		this.laserGrid[i] = [];
-		for(var j = 0; j < this.rcNum; j++){ 
-			this.laserGrid[i][j] = [];
-		}
-	}
+	this.resetLaserGrid();
 };
 
 Game.prototype.emitLasers = function() {
@@ -54,14 +49,19 @@ Game.prototype.emitLasers = function() {
 Game.prototype.resetLevel = function() {
 	this.levelGrid = JSON.parse(JSON.stringify(this.levels[this.levelCounter].grid));
 	this.laserGrid = [];
+	this.playerPos = this.levels[this.levelCounter].playerPos;
 	this.rcNum = this.levels[this.levelCounter].rcNum;
+	this.player = new Player(this.playerPos[0], this.playerPos[1], this.rcNum, this.levelGrid)
 	this.colorsToComplete = this.levels[this.levelCounter].colors;
 	this.colorsCompleted = [];
 
-	// reset laserGrid
-	for(var i = 0; i < this.rcNum; i++) {
+	this.resetLaserGrid();
+};
+
+Game.prototype.resetLaserGrid = function() {
+	for (var i = 0; i < this.rcNum; i++) {
 		this.laserGrid[i] = [];
-		for(var j = 0; j < this.rcNum; j++){ 
+		for (var j = 0; j < this.rcNum; j++){ 
 			this.laserGrid[i][j] = [];
 		}
 	}
