@@ -112,6 +112,7 @@ function restartLevel() {
 	$(".game-message").hide();
 
 	$(".grid-container").empty();
+	$(".player-container").empty()
 	createGridContainer('grid-container', laserGame.levelGrid, laserGame.rcNum);
 	createGridContainer('player-container', laserGame.player.grid, laserGame.player.gridSize);
 	laserGame.emitLasers();
