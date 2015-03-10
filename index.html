@@ -84,7 +84,21 @@
 						var otherTile = getTileByCoord(getYByTile(selected) + 1, getXByTile(selected));
 						tileSwapKeys(selected, otherTile);
 					}
-				}
+				} else if (playerControls) {
+					if (e.which == 37) {
+						// Left pressed
+						player.move('left');
+					} else if (e.which == 38) {
+						// Up pressed
+						player.move('up');
+					} else if (e.which == 39) {
+						// Right pressed
+						player.move('right');
+					} else if (e.which == 40) {
+						// Down pressed
+						player.move('down');
+					}
+				} 
 			});
 		});
 

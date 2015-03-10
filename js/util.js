@@ -1,6 +1,7 @@
 var selected = null;
 var arrowControls = true;
 var laserGame = new Game(levels);
+var player = new Player(1, 1);
 
 function overlayLasers(laserGrid, rcNum) {
 	for (var y = 0; y < rcNum; y++) {
