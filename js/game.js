@@ -6,6 +6,8 @@ var Game = function(levels) {
 };
 
 Game.prototype.checkStatus = function() {
+	console.log(this.isHit());
+
 	if (this._lasersCompleted()) {
 		console.log('Level completed');
 		this.levelCounter++;
@@ -44,6 +46,13 @@ Game.prototype.emitLasers = function() {
 			}
 		}
 	}
+};
+
+Game.prototype.isHit = function() {
+	if (this.laserGrid[this.player.y][this.player.x].length != 0) {
+		return true;
+	}
+	return false;
 };
 
 Game.prototype.resetLevel = function() {
