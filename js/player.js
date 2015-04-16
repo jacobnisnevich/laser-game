@@ -14,6 +14,14 @@ var Player = function(startX, startY, gridSize, gameGrid) {
 };
 
 Player.prototype.move = function(direction) {
+	if (this.immuneCounter != 0) {
+		this.immuneCounter--;
+		if (this.immuneCounter == 0) {
+			// TODO: Hide immmunity counter element
+			this.immune = "";
+		}
+	}
+	console.log(this.immune + ": " + this.immuneCounter);
 	if (this._collision(direction)) {
 		switch (direction) {
 			case 'left':
@@ -29,11 +37,7 @@ Player.prototype.move = function(direction) {
 				this.y += 1;
 				break;
 		}
-
 		$(".move-counter").html(Number($(".move-counter").html()) + 1)
-		if (this.immuneCounter != 0) {
-			this.immuneCounter--;
-		}
 	}
 
 	this.updateGrid();
@@ -81,6 +85,11 @@ Player.prototype._push = function(newX, newY, direction) {
 	if (nextTile[0] == 'wall' || nextTile[0] == 'brick' || nextTile[0] == 'glass') {
 		return false;
 	} else if (nextTile[0] == 'floor') {
+		return true;
+	} else if (nextTile[0] == 'immune') {
+		this.immune = nextTile[1];
+		this.immuneCounter = 5;
+		// TODO: Show immunity counter element
 		return true;
 	} else if (nextTile[0] == 'mirror') {
 		while (nextTile[0] == 'mirror') {

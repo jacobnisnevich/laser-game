@@ -6,8 +6,6 @@ var Game = function(levels) {
 };
 
 Game.prototype.checkStatus = function() {
-	console.log(this.isHit());
-
 	if (this._lasersCompleted()) {
 		console.log('Level completed');
 		this.levelCounter++;
