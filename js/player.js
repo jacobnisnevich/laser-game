@@ -5,6 +5,9 @@ var Player = function(startX, startY, gridSize, gameGrid) {
 	this.gridSize = gridSize;
 	this.grid = [];
 
+	this.immune = "";
+	this.immuneCounter = 0;
+
 	this.gameGrid = gameGrid;
 
 	this.updateGrid();
@@ -28,6 +31,9 @@ Player.prototype.move = function(direction) {
 		}
 
 		$(".move-counter").html(Number($(".move-counter").html()) + 1)
+		if (this.immuneCounter != 0) {
+			this.immuneCounter--;
+		}
 	}
 
 	this.updateGrid();

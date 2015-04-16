@@ -49,8 +49,15 @@ Game.prototype.emitLasers = function() {
 };
 
 Game.prototype.isHit = function() {
+	var laser;
 	if (this.laserGrid[this.player.y][this.player.x].length != 0) {
-		return true;
+		for (var i = 0; i < this.laserGrid[this.player.y][this.player.x].length; i++) {
+			laser = this.laserGrid[this.player.y][this.player.x][i].split('_');
+			if (laser[1] != this.player.immune) {
+				console.log("Player was hit by a " + laser[1] + " laser!");
+				return true;
+			}
+		}
 	}
 	return false;
 };
